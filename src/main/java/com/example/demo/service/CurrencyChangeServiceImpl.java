@@ -5,9 +5,6 @@ import com.example.demo.dto.ChangeResponse;
 import com.example.demo.entity.ChangeType;
 import com.example.demo.repository.ChangeTypeRepository;
 import io.reactivex.rxjava3.core.Single;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +16,6 @@ public class CurrencyChangeServiceImpl implements CurrencyChangeService {
     @Autowired
     private ChangeTypeRepository changeTypeRepository;
 
-    //https://spring.io/guides/gs/reactive-rest-service/
     @Override
     public Single<ChangeResponse> getResult(ChangeRequest changeRequest) {
         return Single.create(suscriber -> {
