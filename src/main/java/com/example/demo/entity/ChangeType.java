@@ -26,11 +26,28 @@ public class ChangeType {
         this.type = type;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+
     public double getType() {
         return type;
     }
 
     public void setType(double type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

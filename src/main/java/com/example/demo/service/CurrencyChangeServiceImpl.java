@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ChangeRequest;
 import com.example.demo.dto.ChangeResponse;
+import com.example.demo.dto.MoneyRequest;
 import com.example.demo.entity.ChangeType;
 import com.example.demo.repository.ChangeTypeRepository;
 import io.reactivex.rxjava3.core.Single;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 public class CurrencyChangeServiceImpl implements CurrencyChangeService {
@@ -37,6 +39,26 @@ public class CurrencyChangeServiceImpl implements CurrencyChangeService {
             suscriber.onSuccess(changeResponse);
         });
     }
+
+    @Override
+    public Single<Integer> addMoney(MoneyRequest moneyRequest) {
+        return Single.create(suscriber -> {
+            ChangeType money = new ChangeType();
+            money.setCurrency(moneyRequest.getMoneyName());
+            money.setType(moneyRequest.getValue());
+            int id = changeTypeRepository.save(money).getId();
+            suscriber.onSuccess(id);
+        });
+    }
+
+    @Override
+    public Single<List<ChangeType>> listAllMoney() {
+        return Single.create(suscriber -> {
+            List<ChangeType> allMoney = changeTypeRepository.findAll();
+            suscriber.onSuccess(allMoney);
+        });
+    }
+
 
     private BigDecimal getChangeType(double changeRequest, double byOCurrency) {
         BigDecimal amount = new BigDecimal(changeRequest);
